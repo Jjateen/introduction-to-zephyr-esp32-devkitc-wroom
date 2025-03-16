@@ -132,7 +132,7 @@ Flash the binary to your board. For some ESP32 boards, you need to put it into b
 > **Important!** make sure to execute flashing and serial monitor programs from your **host OS** (not from within the Docker container)
 
 ```sh
-python -m esptool --port "<PORT>" --chip auto --baud 921600 --before default_reset --after hard_reset write_flash -u --flash_mode keep --flash_freq 40m --flash_size detect 0x0 workspace/apps/01_blink/build/zephyr/zephyr.bin
+python -m esptool --port "<PORT>" --chip auto --baud 921600 --before default_reset --after hard_reset write_flash -u --flash_mode keep --flash_freq 40m --flash_size detect 0x1000 workspace/apps/01_blink/build/zephyr/zephyr.bin
 ```
 
 > **Important**: If you are using Linux and get a `Permission denied` or `Port doesn't exist` error when flashing, you likely need to add your user to the *dialout* group with the following command: `sudo usermod -a -G dialout $USER`. Log out and log back in (or restart). You should then be able to call the *esptool* command again to flash the firmware.
@@ -140,7 +140,7 @@ python -m esptool --port "<PORT>" --chip auto --baud 921600 --before default_res
 Open a serial port for debugging. Change `<PORT>` to the serial port for your ESP32 board.
 
 ```sh
-python -m serial.tools.miniterm "<PORT>" 115200
+python -m serial.tools.miniterm "/dev/ttyUSB0" 115200
 ```
 
 You should see the LED state printed to the console. Exit with *ctrl+]* (or *cmd+]* for macOS).
