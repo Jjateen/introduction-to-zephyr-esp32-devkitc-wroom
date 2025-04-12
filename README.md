@@ -1,14 +1,8 @@
 # Introduction to Zephyr
 
-Welcome to the Introduction to Zephyr course! You will find all of the example projects and solution code for the example projects in this repository. Follow the [Development Environment: Espressif](#development-environment-espressif) and [Getting Started](#getting-started) sections below to set up the Zephyr and ESP32 toolchain 
+Welcome to the Introduction to Zephyr course! You will find all of the example projects and solution code for the example projects in this repository. Follow the [Development Environment](#development-environment) and [Getting Started](#getting-started) sections below to set up the Zephyr and ESP32 toolchain 
 
-The full Introduction to Zephyr video series can be found [here](https://www.youtube.com/watch?v=mTJ_vKlMS_4&list=PLEBQazB0HUyTmK2zdwhaf8bLwuEaDH-52&index=1):
-
-[![Introduction to Zephyr video series](https://img.youtube.com/vi/mTJ_vKlMS_4/0.jpg)](https://www.youtube.com/watch?v=mTJ_vKlMS_4&list=PLEBQazB0HUyTmK2zdwhaf8bLwuEaDH-52&index=1)
-
-> **Note**: The video series and development environment were built specifically around the ESP32. You are welcome to try a non-Espressif board, but I cannot promise it will work. Also, some features (e.g. WiFi) might not be available. There are notes after the *Getting Started* section on how to build Docker images for other targets.
-
-## Development Environment: Espressif
+## Development Environment
 
 This is a development environment for creating Docker images with the Zephyr toolchain used to build source code for the ESP32. You build the image for your desired toolchain, store projects in the *workspace/* directory, and then run the image whenever you want to build (e.g. `west build`) the project. The intention is to use this environment as your VS Code working directory, but it is usable outside of VS Code.
 
@@ -58,8 +52,6 @@ From this directory, build the image (this will take some time):
 ```sh
 docker build -t env-zephyr-espressif -f Dockerfile.espressif .
 ```
-
-> **NOTE**: If you see an `Unsupported architecture` error, you may need to set the CPU architecture manually. Add `--build-arg TARGETARCH=amd64` (or `arm64`, depending on your CPU) to your `docker build` command.
 
 You can ignore the warning about setting the password as an `ARG` in the Dockerfile. The container is fairly unsecure anyway; I only recommend running it locally when you need it. You will need to change the password and configure *code-server* and *sshd* to be more secure if you want to use it remotely.
 
@@ -115,17 +107,17 @@ Connect and login using the password in the Dockerfile (default: `zephyr`). Go t
 
 I recommend installing the following VS Code extensions to make working with Zephyr easier (e.g. IntelliSense). Note that the *zephyr.code-worspace* file will automatically recommend them.
 
- * [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+ * [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)AZ
  * [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
  * [nRF DeviceTree](https://marketplace.visualstudio.com/items?itemName=nordic-semiconductor.nrf-devicetree)
  * [Microsoft Hex Editor](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
 
 ### Build Demo Application
 
-Open a terminal in the VS Code client and build the project. Note that I'm using the [ESP32-S3-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/index.html) as my target board. Feel free to change it to one of the [other ESP32 dev boards](https://docs.zephyrproject.org/latest/boards/index.html#vendor=espressif).
+Open a terminal in the VS Code client and build the project. Note that I'm using the [ESP32-S3-DevKitC](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/hw-reference/esp32s3/user-guide-devkitc-1.html) as my target board. Feel free to change it to one of the [other ESP32 dev boards](https://docs.zephyrproject.org/latest/boards/index.html#vendor=espressif).
 
 ```
-cd apps/01_demo_blink
+cd apps/01_blink
 west build -p always -b esp32s3_devkitc/esp32s3/procpu -- -DDTC_OVERLAY_FILE=boards/esp32s3_devkitc.overlay
 ```
 
